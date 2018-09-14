@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -10,7 +10,18 @@
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the
-    <a target="_blank" rel="noopener" href="https://ionicframework.com/docs">docs</a> will be your guide.</p>
+  <h3><ion-badge slot="end">{{ (todos | async)?.length }}</ion-badge> List of todo's:</h3>
+  <ion-list>
+    <ion-item *ngFor="let todo of todos | async">
+      <ion-avatar slot="start" color="primary">
+          <ion-icon size="large" name="stopwatch" color="success" *ngIf="todo.type == 'LOW'"></ion-icon>
+          <ion-icon size="large" name="alert" color="warning" *ngIf="todo.type == 'MEDIUM'"></ion-icon>
+          <ion-icon size="large" name="warning" color="danger" *ngIf="todo.type == 'HIGH'"></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ todo.type }}</h2>
+        <h3>{{ todo.desc }}</h3>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
